@@ -34,3 +34,19 @@ Dev
 | <https://dev-index.xelis.io> | `g45t345rt` `Slixe` |
 
 ## Run your own
+
+If you don't want to have limited ressource you should run your own indexer and modify code based on your needs.
+
+## Build
+
+Pull xgo docker first
+
+`docker pull crazymax/xgo:latest`
+
+and quick build for linux
+
+`./xgo_build.sh`
+
+or target build directly
+
+`xgo -v -targets linux/amd64 -dest build .`

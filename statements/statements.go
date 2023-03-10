@@ -10,27 +10,29 @@ import (
 
 const INSERT_UPDATE_BLOCK = `
 	INSERT INTO "blocks" ("hash", "topoheight", "timestamp", "block_type", "cumulative_difficulty",
-		"supply", "difficulty", "reward", "height", "miner", "nonce", "tips")
-	VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+		"supply", "difficulty", "reward", "height", "miner", "nonce", "tips", "total_fees", "size")
+	VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 	ON CONFLICT (hash) DO UPDATE SET
-	"topoheight" = EXCLUDED."topoheight",
-	"timestamp" = EXCLUDED."timestamp",
-	"block_type" = EXCLUDED."block_type",
-	"cumulative_difficulty" = EXCLUDED."cumulative_difficulty",
-	"supply" = EXCLUDED."supply",
-	"difficulty" = EXCLUDED."difficulty",
-	"reward" = EXCLUDED."reward",
-	"height" = EXCLUDED."height",
-	"miner" = EXCLUDED."miner",
-	"nonce" = EXCLUDED."nonce",
-	"tips" = EXCLUDED."tips";
+		"topoheight" = EXCLUDED."topoheight",
+		"timestamp" = EXCLUDED."timestamp",
+		"block_type" = EXCLUDED."block_type",
+		"cumulative_difficulty" = EXCLUDED."cumulative_difficulty",
+		"supply" = EXCLUDED."supply",
+		"difficulty" = EXCLUDED."difficulty",
+		"reward" = EXCLUDED."reward",
+		"height" = EXCLUDED."height",
+		"miner" = EXCLUDED."miner",
+		"nonce" = EXCLUDED."nonce",
+		"tips" = EXCLUDED."tips",
+		"total_fees" = EXCLUDED."total_fees",
+		"size" = EXCLUDED."size";
 `
 
 func ExecInsertUpdateBlock(tx *pg.Tx, block *xelisDaemon.Block) (orm.Result, error) {
 	return tx.Exec(INSERT_UPDATE_BLOCK,
 		block.Hash, block.Topoheight, block.Timestamp, block.BlockType,
 		block.CumulativeDifficulty, block.Supply, block.Difficulty, block.Reward, block.Height,
-		block.Miner, block.Nonce, pg.Array(block.Tips))
+		block.Miner, block.Nonce, pg.Array(block.Tips), block.TotalFees, block.TotalSizeInBytes)
 }
 
 const INSERT_UPDATE_TX = `
