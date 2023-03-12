@@ -12,7 +12,7 @@ schemas = ["public", "storage", "graphql_public"]
 extra_search_path = ["public", "extensions"]
 # The maximum number of rows returns from a view, table, or stored procedure. Limits payload size
 # for accidental or malicious requests.
-max_rows = 1000
+max_rows = 100
 
 [db]
 # Port to use for the local database URL.
@@ -47,11 +47,11 @@ additional_redirect_urls = ["https://localhost:3000"]
 # week).
 jwt_expiry = 3600
 # Allow/disallow new user signups to your project.
-enable_signup = true
+enable_signup = false
 
 [auth.email]
 # Allow/disallow new user signups via email to your project.
-enable_signup = true
+enable_signup = false
 # If enabled, a user will be required to confirm any email change on both the old, and new email
 # addresses. If disabled, only the new email is required to confirm.
 double_confirm_changes = true
