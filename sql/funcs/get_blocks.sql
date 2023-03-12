@@ -18,8 +18,10 @@ RETURNS TABLE (
 )
 AS $$
 BEGIN
-    RETURN QUERY SELECT b."hash", b."topoheight", b."timestamp", b."block_type", b."cumulative_difficulty", b."supply", b."difficulty",
-        b."reward", b."height", b."miner", b."nonce", b."tips", b."size", b."total_fees", count(tb."block_hash") as "tx_count" FROM "blocks" b
+    RETURN QUERY 
+        SELECT b."hash", b."topoheight", b."timestamp", b."block_type", b."cumulative_difficulty", b."supply", b."difficulty",
+        b."reward", b."height", b."miner", b."nonce", b."tips", b."size", b."total_fees", count(tb."block_hash") as "tx_count" 
+        FROM "blocks" b
         LEFT JOIN "transaction_blocks" tb ON tb."block_hash" = b."hash"
         GROUP BY b."hash", b."topoheight", b."timestamp", b."block_type", b."cumulative_difficulty", b."supply", b."difficulty",
         b."reward", b."height", b."miner", b."nonce", b."tips", b."size", b."total_fees"
